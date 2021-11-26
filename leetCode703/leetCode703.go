@@ -59,4 +59,3 @@ func (kl *KthLargest) Add(val int) int {
     
     return kl.nums[0]
 }
-
