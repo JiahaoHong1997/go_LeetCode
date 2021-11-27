@@ -1,8 +1,11 @@
 package leetCode90
 
+import "sort"
+
 func subsetsWithDup(nums []int) [][]int {
     ret := make([][]int,0)
     path := make([]int,0)
+	sort.Ints(nums)
     DFS(nums,path,&ret,0)
 
     return ret
