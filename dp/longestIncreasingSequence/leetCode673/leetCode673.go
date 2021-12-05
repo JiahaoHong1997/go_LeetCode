@@ -3,7 +3,7 @@ package leetcode673
 // 本题是leetCode300的延伸
 func findNumberOfLIS(nums []int) int {
 	dp := make([]int, len(nums))	// 索引为 i 的元素作为末尾的子序列的最大长度
-	cnt := make([]int, len(nums))	// 索引为 i 的元素作为末尾的子序列
+	cnt := make([]int, len(nums))	// 索引为 i 的元素作为末尾的子序列的最长子序列个数
 
 	dp[0] = 1
 	cnt[0] = 1
