@@ -16,13 +16,13 @@ func maxSizeSlices(slices []int) int {
 	for i:=1; i<len(slices); i++ {
 		for j:=1; j<=choose && j <= i ; j++ {
 			if i-2 < 0 {
-				dp0[i][j] = dp0[i-1][j]
+				dp0[i][j] = max(dp0[i-1][j],slices[i])
 			} else if i < len(slices)-1 {
 				dp0[i][j] = max(dp0[i-1][j], dp0[i-2][j-1]+slices[i])
 			}
 			
 			if i>1 && i<3 {
-				dp1[i][j] = dp1[i-1][j]
+				dp1[i][j] = max(dp1[i-1][j],slices[i])
 			} else if i >= 3 {
 				dp1[i][j] = max(dp1[i-1][j], dp1[i-2][j-1]+slices[i])
 			}
