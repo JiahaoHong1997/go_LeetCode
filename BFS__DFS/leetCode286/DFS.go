@@ -1,6 +1,15 @@
 package leetcode286
 
 // 本题使用 DFS 必超时
+// goos: darwin
+// goarch: amd64
+// pkg: leetCode/bFS__DFS/leetCode286
+// cpu: Intel(R) Core(TM) i5-1038NG7 CPU @ 2.00GHz
+// BenchmarkBFS-8               836           1430195 ns/op
+// BenchmarkDFS-8                 1        132343746122 ns/op
+// PASS
+// ok      leetCode/bFS__DFS/leetCode286   134.440s
+
 func wallsAndGatesDFS(rooms [][]int)  {
 	doors := make([][]int, 0)
 	for i := 0; i < len(rooms); i++ {
