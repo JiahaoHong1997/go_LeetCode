@@ -28,7 +28,7 @@ func backTracking(board [][]byte, word string, pos int, index int, m [][]bool) b
     }
 
     m[h][w] = true
-    defer func() {
+    defer func() {  // 回溯到之前的节点时，需要还原被标记过的路径，将其置为未访问状态
         m[h][w] = false
     }()
     
