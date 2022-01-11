@@ -38,4 +38,20 @@ func printFunc() {
 
 func main() {
 	printFunc()
+
+	a := 10
+	defer func() {
+		// a = 20
+		fmt.Println("defer: a=", a)
+	}()
+	
+	fmt.Println("origin: a=", a)
+	a = 30 
+	fmt.Println("revise a=", a)
+
+	s := "\""
+	fmt.Println(s)
+
+	b := byte(2+'0')
+	fmt.Printf("b:%s\n",string(b))
 }
