@@ -32,9 +32,6 @@ func checkValidString(s string) bool {
 			}
 
 			for k:=i; k<j; k++ {
-                if i == 0 && j == 5 {
-                    fmt.Println(dp[i][k],dp[k+1][j])
-                }
 				if dp[i][k] && dp[k+1][j] {
 					dp[i][j] = true
 					break
