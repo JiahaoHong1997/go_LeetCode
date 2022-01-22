@@ -54,4 +54,12 @@ func main() {
 
 	b := byte(2+'0')
 	fmt.Printf("b:%s\n",string(b))
+
+	var c float64
+	var d float64
+	c = 1 - (2*1.0) / 3
+	d = 4 / c
+	e := 12.0
+	isEqual := e == d
+	fmt.Println(c,d,isEqual)
 }
