@@ -62,4 +62,15 @@ func main() {
 	e := 12.0
 	isEqual := e == d
 	fmt.Println(c,d,isEqual)
+
+	f := []int{1,2,3,4}
+	g := f[:0]
+	fmt.Printf("f: %p, %v, %v, %v\n", f, f, len(f), cap(f))
+	fmt.Printf("g: %p, %v, %v, %v\n", g, g, len(g), cap(g))
+	g = append(g, 5, 6, 7)
+	fmt.Printf("f: %p, %v, %v, %v\n", f, f, len(f), cap(f))
+	fmt.Printf("g: %p, %v, %v, %v\n", g, g, len(g), cap(g))
+	f = g
+	fmt.Printf("f: %p, %v, %v, %v\n", f, f, len(f), cap(f))
+	fmt.Printf("g: %p, %v, %v, %v\n", g, g, len(g), cap(g))
 }
