@@ -1,7 +1,5 @@
 package ci54
 
-import "fmt"
-
 type TreeNode struct {
     Val int
     Left *TreeNode
