@@ -73,4 +73,37 @@ func main() {
 	f = g
 	fmt.Printf("f: %p, %v, %v, %v\n", f, f, len(f), cap(f))
 	fmt.Printf("g: %p, %v, %v, %v\n", g, g, len(g), cap(g))
+
+	ch1 := make(chan int,1)
+	ch2 := make(chan int,1)
+	i, j := 1, 2
+
+	f1 := func() {
+		if i < 100 {
+			fmt.Println(i)
+			i += 2
+			ch2<-1	
+		}
+	}
+	
+	f2 := func() {
+		if j <= 100 {
+			fmt.Println(j)
+			j += 2
+			ch1<-1
+		}
+	}
+	
+	ch1<-1
+	for {
+		select {
+		case <-ch1:
+			f1()
+		case <-ch2:
+			f2()
+		default:
+			return
+		}
+	}
+
 }
