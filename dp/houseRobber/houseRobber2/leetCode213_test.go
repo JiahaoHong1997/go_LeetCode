@@ -1,4 +1,4 @@
-package leetcode213
+package houserobber2
 
 import "testing"
 
