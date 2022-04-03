@@ -1,6 +1,10 @@
 package main
 
-import "fmt"
+import (
+	"context"
+	"fmt"
+	"time"
+)
 
 func func1() func(int) int {
 	sum := 0
@@ -74,36 +78,69 @@ func main() {
 	fmt.Printf("f: %p, %v, %v, %v\n", f, f, len(f), cap(f))
 	fmt.Printf("g: %p, %v, %v, %v\n", g, g, len(g), cap(g))
 
-	ch1 := make(chan int,1)
-	ch2 := make(chan int,1)
-	i, j := 1, 2
+	// ch1 := make(chan int,1)
+	// ch2 := make(chan int,1)
+	// i, j := 1, 2
 
-	f1 := func() {
-		if i < 100 {
-			fmt.Println(i)
-			i += 2
-			ch2<-1	
-		}
-	}
+	// f1 := func() {
+	// 	if i < 100 {
+	// 		fmt.Println(i)
+	// 		i += 2
+	// 		ch2<-1	
+	// 	}
+	// }
 	
-	f2 := func() {
-		if j <= 100 {
-			fmt.Println(j)
-			j += 2
-			ch1<-1
-		}
-	}
+	// f2 := func() {
+	// 	if j <= 100 {
+	// 		fmt.Println(j)
+	// 		j += 2
+	// 		ch1<-1
+	// 	}
+	// }
 	
-	ch1<-1
-	for {
-		select {
-		case <-ch1:
-			f1()
-		case <-ch2:
-			f2()
-		default:
-			return
-		}
-	}
+	// ch1<-1
+	// for {
+	// 	select {
+	// 	case <-ch1:
+	// 		f1()
+	// 	case <-ch2:
+	// 		f2()
+	// 	default:
+	// 		return
+	// 	}
+	// }
 
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+
+	go func(c context.Context) {
+
+		for {
+			select {
+			case <-ctx.Done():
+				fmt.Println("processA is over!")
+			default:
+				time.Sleep(1*time.Second)
+				fmt.Println("AAA!")
+			}
+		}
+	}(ctx)
+
+	go func(c context.Context) {
+
+		for {
+			select {
+			case <-ctx.Done():
+				fmt.Println("processB is over!")
+			default:
+				time.Sleep(1*time.Second)
+				fmt.Println("BBB!")
+			}
+		}
+	}(ctx)
+	
+	select {
+	case <-ctx.Done():
+		return
+	}
 }
