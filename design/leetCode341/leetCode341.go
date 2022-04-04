@@ -3,11 +3,11 @@ package leetcode341
 type NestedInteger struct {
 }
 
-func (this NestedInteger) IsInteger() bool {}
+func (this NestedInteger) IsInteger() bool { return true }
 
-func (this NestedInteger) GetInteger() int {}
+func (this NestedInteger) GetInteger() int { return 0 }
 
-func (this NestedInteger) GetList() []*NestedInteger {}
+func (this NestedInteger) GetList() []*NestedInteger { return nil }
 
 type NestedIterator struct {
     array   []int

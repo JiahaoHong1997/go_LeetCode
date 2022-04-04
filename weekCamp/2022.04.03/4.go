@@ -1,91 +1,34 @@
 package weekCamp
 
 type Encrypter struct {
-	keys       map[byte]int
-	k          []byte
-	values     map[string][]int
-	v          []string
-	dictionary map[string]bool
+	mp  [26]string
+	cnt map[string]int
 }
 
-func Constructor(keys []byte, values []string, dictionary []string) Encrypter {
-
-	m := make(map[byte]int)
-	for i := 0; i < len(keys); i++ {
-		m[keys[i]] = i
+func Constructor(keys []byte, values, dictionary []string) Encrypter {
+	mp := [26]string{}
+	for i, key := range keys {
+		mp[key-'a'] = values[i]
 	}
-
-	t := make(map[string][]int)
-	for i:=0; i<len(values); i++ {
-		t[values[i]] = append(t[values[i]], i)
+	e := Encrypter{mp, map[string]int{}}
+	for _, s := range dictionary {
+		e.cnt[e.Encrypt(s)]++
 	}
-
-	d := make(map[string]bool)
-	for i:=0; i<len(dictionary); i++ {
-		d[dictionary[i]] = true
-	}
-	return Encrypter{
-		keys:       m,
-		k: keys,
-		values: t,
-		v:     values,
-		dictionary: d,
-	}
+	return e
 }
 
-func (this *Encrypter) Encrypt(word1 string) string {
-
-	b := ""
-	for i := 0; i < len(word1); i++ {
-		c := word1[i]
-		index := this.keys[c]
-		b += this.v[index]
+func (e *Encrypter) Encrypt(word1 string) string {
+	res := make([]byte, 0, len(word1)*2)
+	for _, ch := range word1 {
+		s := e.mp[ch-'a']
+		if s == "" { return "" }
+		res = append(res, s...)
 	}
-
-	return b
+	return string(res)
 }
 
-func (this *Encrypter) Decrypt(word2 string) int {
+func (e *Encrypter) Decrypt(word2 string) int { return e.cnt[word2] }
 
-	count := 0
-	sub := ""
-	dec := []string{}
-	for i:=0; i<len(word2); i++ {
-		count++
-		sub += word2[i:i+1]
-		if count == 2 {
-			count = 0
-			sub = ""
-		}
-
-		list := this.values[sub]
-		times := len(list)
-		tList := make([]string, len(dec))
-		copy(tList, dec)
-		for i:=0; i<times-1; i++ {
-			dec = append(dec, tList...)
-		}
-
-		for j:=0; j<len(list); j++ {
-			index := list[j]
-			c := this.k[index]
-			for k:=0; k<len(dec)/times; k++ {
-				ff := j*len(dec)/times + k
-				dec[ff] += string(c)
-			}
-		}
-	}
-
-	ret := 0
-	for i:=0; i<len(dec); i++ {
-		s := dec[i]
-		if this.dictionary[s] {
-			ret++
-		}
-	}
-
-	return ret
-}
 
 /**
  * Your Encrypter object will be instantiated and called as such:
