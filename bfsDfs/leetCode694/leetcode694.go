@@ -1,5 +1,7 @@
 package leetcode694
 
+import "fmt"
+
 func numDistinctIslands(grid [][]int) int {
 
 	m := make(map[string]struct{})
