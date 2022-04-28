@@ -1,5 +1,0 @@
-package w
-
-func sss() {
-	
-}
