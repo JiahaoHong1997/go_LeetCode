@@ -1,0 +1,5 @@
+package w
+
+func sss() {
+	
+}
