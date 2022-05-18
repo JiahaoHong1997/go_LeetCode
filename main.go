@@ -40,6 +40,8 @@ func printFunc() {
 	fmt.Println(func3()) // 10
 }
 
+func String(v string) *string { return &v }
+
 func main() {
 	printFunc()
 
@@ -77,6 +79,11 @@ func main() {
 	f = g
 	fmt.Printf("f: %p, %v, %v, %v\n", f, f, len(f), cap(f))
 	fmt.Printf("g: %p, %v, %v, %v\n", g, g, len(g), cap(g))
+	
+	var sourceCode *string
+	// sourceCode = nil
+	*sourceCode = ""
+	fmt.Println("sourceCode:", *sourceCode)
 
 	// ch1 := make(chan int,1)
 	// ch2 := make(chan int,1)
